@@ -1,0 +1,129 @@
+<header id="header" class="top-head">
+   <!-- Static navbar -->
+   <nav class="navbar navbar-default">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-4 col-sm-12 left-rs">
+               <div class="navbar-header">
+                  <button type="button" id="top-menu" class="navbar-toggle" [ngStyle]="{'background-color' : isToggled ? '#1c94fdaf' : 'white'}" (click)="toggle()" aria-expanded="false"> 
+                     <span class="sr-only">Toggle navigation</span> 
+                     <span class="icon-bar"></span> 
+                     <span class="icon-bar"></span> 
+                     <span class="icon-bar"></span> 
+                  </button>
+                  <a [routerLink]="" class="navbar-brand"><img src="images/logo.png" alt="" /></a>
+               </div>
+               <form class="navbar-form navbar-left web-sh" (ngSubmit)="rechercheNomprod()">
+                  <div class="form">
+                     <input type="text" [(ngModel)]="nomprodRech"  id="nomprodRech" name="nomprodRech"  class="form-control" placeholder="Rechercher un produit">
+                  </div>
+               </form>
+            </div>
+           
+            <div class="col-md-8 col-sm-12">
+               <div class="right-nav">
+                  <div class="help-r hidden-xs">
+                     <div class="help-box">
+                        <ul>
+                           <li>
+                              <a href="login"> 
+                                 <span id="quitter">Déconnexion</span>
+                               <i class="fa fa-sign-out"></i>
+                              
+                              </a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="help-r hidden-xs">
+                     <div class="help-box">
+                        <ul>
+                           
+                           <li>
+                              <a href="inside/enreg"> 
+                                 <span>Favoris</span>
+                               <i class="fa fa-star"></i>
+                              
+                              </a>
+                           </li>
+                           <li class="message-icon">
+                              <a href="inside/message"> 
+                                 <span>Message</span>
+                               <i class="fa fa-envelope"></i>
+                               <span class="notif-badge" [ngStyle]="{'display' : hasNonLuMessage ? 'block' : 'none'}"></span>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="inside/profil" (click)="voirUser()">
+                              <span>Profil</span> 
+                              <i class="fa fa-user"></i>
+                              </a>
+                           </li>
+                          
+                        </ul>
+                     </div>
+                  </div>
+                  <!-- <div class="nav-b hidden-xs">
+                     <div class="nav-box">
+                        <ul>
+                           <li><a href="howitworks.html">Nos services</a></li>
+                           <li><a href="about-us.html">A propos</a></li>
+                        </ul>
+                     </div>
+                  </div> -->
+                  <div class="nav-b hidden-xs">
+                     <div class="nav-box">
+                        <ul>
+                           <form (ngSubmit)="rechercheCategprod()">
+                           <li>
+                              
+                                 <select [(ngModel)]="categprodRech"  id="categprodRech" name="categprodRech"  class="form-control" required>
+                                    <option value="Accessoire">Accessoire</option>
+                                    <option value="Matériel">Matériel</option>
+                                    <option value="Menager">Menager</option>
+                                    <option value="Meuble">Meuble</option>
+                                    <option value="Nourriture">Nourriture</option>    
+                                    <option value="Service">Service</option>
+                                    <option value="Vetement">Vetement</option>
+                                    <option value="Toutes">Toutes</option>
+                                 </select>
+                                 
+                              
+                              
+                           </li>
+                           <li><button class="btn btn-success">OK</button></li>
+                        </form>  
+                        </ul>
+                     </div>
+                  </div>
+                  
+
+
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--/.container-fluid --> 
+   </nav>
+</header>
+<!-- Modal -->
+
+<div id="sidebar" class="top-nav" [ngClass]="{ 'top-nav active' : isToggled , 'top-nav' : !isToggled}">
+   <ul id="sidebar-nav" class="sidebar-nav">
+      <li>
+         <a href="inside/enreg"> 
+          <i class="fa fa-star"></i>
+          <span> Favoris</span>
+         </a>
+      </li>
+      <li>
+         <a href="inside/message"> 
+          <i class="fa fa-envelope"></i>
+          <span> Message</span>
+         </a>
+      </li>
+      <li> <a href="inside/profil" (click)="voirUser()"><i class="fa fa-user"></i> Profil </a> </li>
+     
+      <li><a href="login"><span id="quitter"><i class="fa fa-sign-out"></i> Déconnexion</span></a></li>
+   </ul>
+</div>

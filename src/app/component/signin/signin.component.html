@@ -1,0 +1,167 @@
+<button style="display: none;" type="button" id="btnModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+  Vertically centered
+</button>
+<div class="modal" id="verticalycentered" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Inscription</h5>
+      </div>
+      <div class="modal-body">
+       {{message}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div> 
+</div>
+<!-- End Vertically centered Modal-->
+
+
+<!-- FORMULAIRE INSCRIPTION -->
+<section class="vh-100">
+  <div class="container py-5 h-100">
+  <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0" style="padding: 50px;">
+         
+          <div class="row">
+              <div class="col-lg-5 d-none d-lg-block bg-register-image">
+                <img src="images/back1.png"
+                class="img-fluid" alt="Phone image">
+              </div>
+              <div class="col-lg-7">
+                  <div class="p-5">
+                      <div class="text-center">
+                          <h1 class="h4 text-gray-900 mb-4" [innerText]='iduMaj?"Gérer vos informations":"Créer votre compte"'>Créer votre compte</h1>
+                      </div>
+                      <hr>
+                      @if (!iduMaj){
+                        <form class="user" (ngSubmit)="envoyerUser()">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                  <input type="text"  class="form-control form-control-user" id="nomu" [(ngModel)]="user.nomu" name="nomu" required placeholder="votre nom" class="form-control form-control-lg" />
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" id="prenom" id="prenomu"  class="form-control form-control-user" [(ngModel)]="user.prenomu" name="prenomu" required placeholder="votre prenom" class="form-control form-control-lg" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                              <input type="text" id="introu" class="form-control form-control-user" id="introu" [(ngModel)]="user.introu" name="introu" placeholder="dites quelque chose sur vous" class="form-control form-control-lg" />
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                  <input type="text" id="telephone" id="telu" class="form-control form-control-user" [(ngModel)]="user.telu" name="telu" required placeholder="votre numéro de téléphone" class="form-control form-control-lg" />  
+                                </div>
+                                <div class="col-sm-6">
+                                  <input type="text" id="adresse" id="adru" class="form-control form-control-user" [(ngModel)]="user.adru" name="adru" required placeholder="votre adresse" class="form-control form-control-lg" />  
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            <div class="form-group">
+                              <select id="typeu" class="form-control" [(ngModel)]="user.typeu" name="typeu">
+                                <option value="Acheteur" selected>Acheteur</option>
+                                <option value="Vendeur">Vendeur</option>
+                              </select>
+                            </div>
+                            
+                            <div class="form-group">
+                              <input type="email" id="emailu" class="form-control form-control-user" [(ngModel)]="user.emailu" name="emailu" required placeholder="votre adresse email" class="form-control form-control-lg" />
+                            </div>
+                          
+                            <div class="form-group">
+                              <input style="font-size: 20px;" class="form-control form-control-user" type="password" id="form1Example23" id="mdpu"  [(ngModel)]="user.mdpu" name="mdpu" required placeholder="******" class="form-control form-control-lg" />
+                            </div>
+                            <hr>
+                            <div id="photos">
+                                        
+                              <img  (click) = "fileImage()" src="images/{{photo}}" id="imgProfil">
+                              <input  type="file" id="photosPdp" accept="image/*" style="display: none;" (change)="ajouterPhotos($event)"  class="form-control">            
+                              <img (click) = "fileImageCouv()" src="images/{{photoCouv}}" id="imgCouv">
+                              <input type="file" id="photosCouv" accept="image/*" style="display: none;" (change)="ajouterPhotosCouv($event)"  class="form-control">  
+                                  
+                            </div>
+                            <hr>
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-lg btn-block">
+                              S'inscrire
+                            </button>
+                        </form>
+
+                        <div class="divider d-flex align-items-center my-4">
+                          <p class="text-center fw-bold mx-3 mb-0 text-muted">ou</p>
+                        </div>
+  
+                        <a data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" href="login"
+                        role="button">
+                        Se connecter
+                          </a>
+                      }
+                      @else {
+                        <form class="user" (ngSubmit)="majUser()">
+                          <div class="form-group row">
+                              <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="text"  class="form-control form-control-user" id="nomu" [(ngModel)]="userMajInfos.nomu" name="nomu" required placeholder="votre nom" class="form-control form-control-lg" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" id="prenom" id="prenomu"  class="form-control form-control-user" [(ngModel)]="userMajInfos.prenomu" name="prenomu" required placeholder="votre prenom" class="form-control form-control-lg" />
+                              </div>
+                          </div>
+                          <div class="form-group">
+                            <input type="text" id="introu" class="form-control form-control-user" id="introu" [(ngModel)]="userMajInfos.introu" name="introu" placeholder="dites quelque chose sur vous" class="form-control form-control-lg" />
+                          </div>
+                          <div class="form-group row">
+                              <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="text" id="telephone" id="telu" class="form-control form-control-user" [(ngModel)]="userMajInfos.telu" name="telu" required placeholder="votre numéro de téléphone" class="form-control form-control-lg" />  
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" id="adresse" id="adru" class="form-control form-control-user" [(ngModel)]="userMajInfos.adru" name="adru" required placeholder="votre adresse" class="form-control form-control-lg" />  
+                              </div>
+                          </div>
+                          
+                          <hr>
+                          <div class="form-group">
+                            <select id="typeu" class="form-control" [(ngModel)]="userMajInfos.typeu" name="typeu">
+                              <option value="Acheteur" selected>Acheteur</option>
+                              <option value="Vendeur">Vendeur</option>
+                            </select>
+                          </div>
+                          
+                          <div class="form-group">
+                            <input type="email" id="emailu" class="form-control form-control-user" [(ngModel)]="userMajInfos.emailu" name="emailu" required placeholder="votre adresse email" class="form-control form-control-lg" />
+                          </div>
+                        
+                          <div class="form-group">
+                            <input style="font-size: 20px;" class="form-control form-control-user" type="password" id="form1Example23" id="mdpu"  [(ngModel)]="userMajInfos.mdpu" name="mdpu" required placeholder="******" class="form-control form-control-lg" />
+                          </div>
+                          <hr>
+                          <div id="photos">
+                                      
+                            <img  (click) = "fileImage()" src="images/{{photo}}" id="imgProfil">
+                            <input  type="file" id="photosPdp" accept="image/*" style="display: none;" (change)="ajouterPhotos($event)"  class="form-control">            
+                            <img (click) = "fileImageCouv()" src="images/{{photoCouv}}" id="imgCouv">
+                            <input type="file" id="photosCouv" accept="image/*" style="display: none;" (change)="ajouterPhotosCouv($event)"  class="form-control">  
+                                
+                          </div>
+                          <hr>
+                          <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-lg btn-block">
+                            Mettre à jour
+                          </button>
+                        </form>
+                      }
+                     
+                      
+                     
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  </div>
+</section>
+
+
+
+
+

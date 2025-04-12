@@ -1,0 +1,170 @@
+.product-page-main{
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+#annonceForm a:hover{
+    font-size: larger;
+    color: white;
+}
+.card {
+    position: relative;
+    border-radius: 15px;
+    
+   box-shadow: 0 4px 3px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  .card img {
+    max-height: 200px;
+    object-fit: cover;
+  }
+  
+  .btn {
+    border-radius: 10px;
+  }
+
+.imagesProd{
+    margin-top: 40px;
+    padding: 30px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.imagesProd h3{
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+.imagesProd p{
+    font-size: 20px;
+    margin-top: 10px;
+}
+.card-body{
+    
+    padding-top: 20px;
+    display: flex;
+    gap: 10px;
+    text-align: center;
+}
+.card-body button{
+    border-radius: 0%;
+    
+}
+#produitForm label{
+    margin-top: 20px;
+}
+#produitForm input{
+    margin-top: 20px;
+}
+#produitForm select{
+    margin-top: 20px;
+}
+#produitForm textarea{
+    margin-top: 20px;
+}
+
+#btnEnvoi{
+    margin-top: 40px;
+    height: 50px;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width:200px;
+    float: right;
+
+}
+ .modal-body i{
+    font-size: 100px;
+    color: rgb(67, 112, 0); 
+} 
+
+ /* Style Global pour le Modal */
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Header du Modal */
+.modal-header {
+    background-color: #438143;
+    color: #fff;
+    padding: 20px;
+}
+
+.modal-header h5 {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+    color: #f1f1f1;
+}
+
+.modal-header .btn-close {
+    color: #f1f1f1;
+    opacity: 0.8;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 1;
+}
+
+/* Corps du Modal */
+.modal-body {
+    padding: 20px;
+    font-size: 15px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.modal-body p {
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Pied de page du Modal */
+.modal-footer {
+    background: #f8f9fa;
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 1px solid #dee2e6;
+    color: white;
+}
+
+.modal-footer .btn-primary {
+    background-color: #65a365;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #438143;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #65a365;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #438143;
+}
+
+/* Arrière-plan semi-transparent pour le modal */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+

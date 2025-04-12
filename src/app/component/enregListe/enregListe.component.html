@@ -1,0 +1,76 @@
+<!-- PRODUITS POPULAIRES -->
+<div class="terms-conditions product-page">
+  <div class="terms-title">
+     <div class="container">
+        <div class="row">
+           <ol class="breadcrumb">
+              <li><a href="inside/annonce">Annonce </a></li>
+              <li><a href="inside/profil">Utilisateur</a></li>
+              <li>Favoris</li>
+              <li class="active">Enregistrement</li>
+           </ol>
+        </div>
+     </div>
+  </div>
+</div>
+@if (enregs.length==0){
+  <div style="text-align: center;margin: 60px 0px;">
+  <h1 style="font-weight: 700;font-size:26px;margin-bottom: 30px;">Vous n'avez aucun enregistrement pour le moment.</h1>
+  <img src="images/carde.png" alt="" style="height: 600px"></div>
+}
+
+@if (enregs.length!=0){
+
+<div class="produits" style="background-color: #F4F9FD;">
+  <div class="main-produits">
+        <h2>Vos enregistrement <span style="color: #1f96fe;"> ({{enregs.length}})</span></h2>
+        <div class="produit-slidr">
+           <div class="slide">
+            @for (annonces of enregs;track annonces){
+<!--               
+             @for (annonce of enreg.annonce;track annonce){ -->
+                 <div >
+                    <div class="produit-box">
+                       <div class="produit-i">
+                          <a href="inside/produitPage" (click)="voirProduit(annonces.annonce.numa)" >
+   
+                          @if (annonces.annonce.produit.photos.length>0) {
+                             <img src="images/Produits/{{annonces.annonce.produit.photos[0].titrephoto}}"/>
+                             <!-- @for (photo of annonces.annonce.produit.photos;track photo){
+                                <img src="images/Produits/{{photo.titrephoto}}" alt="sac2-2.jpg" />
+                             } -->
+    
+                             <!-- <p>Lenght : {{annonces.annonce.produit.photos[0].titrephoto}}</p> -->
+                          }
+                         @else{
+                             <img src="images/150x150_1.png"/>
+                          }
+                        
+                          </a>
+                       </div>
+                       <div class="produit-dit clearfix">
+                          <div class="dit-t clearfix">
+                             <div class="left-ti">
+                               
+                                <h4 style="text-transform:uppercase;">{{annonces.annonce.produit.nomprod}}</h4>
+                                <p>Par <span>{{annonces.annonce.user.nomu}} {{annonces.annonce.user.prenomu}}</span> dans <span>{{annonces.annonce.produit.categprod}}</span></p>
+                             </div>
+                             <br>
+                             <!-- <a href="#" style="float: left;margin-top: 20px;font-size: larger;">Ar {{annonces.annonce.produit.prixprod}}</a> -->
+                          </div>
+                          <div class="dit-btn clearfix">
+                             <a id="prixProd">Ar {{annonces.annonce.produit.prixprod}}</a>
+                             <!-- <a class="wis" href="#"><i class="fa fa-star" aria-hidden="true"></i> Enregistrer </a> -->
+                              <button class="wis btn btn-danger" (click)="suppEnreg(annonces.numenreg,annonces.annonce.numa)"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer</button>
+                             <!-- <a class="wis"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer</a> -->
+                          </div>
+                       </div>
+                    </div>   
+                 </div>
+             <!-- } -->
+            }
+           </div>
+        </div>
+  </div>
+</div>
+}

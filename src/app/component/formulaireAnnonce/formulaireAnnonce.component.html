@@ -1,0 +1,370 @@
+<div class="terms-conditions product-page">
+  <div class="terms-title">
+     <div class="container">
+        <div class="row">
+           <ol class="breadcrumb">
+              <li><a href="inside/profil">Profil </a></li>
+              <li>Vendeur</li>
+              <li class="active"><a href="inside/annonce">Annonce</a></li>
+              @if (numaMaj){
+                <li  class="active">Mis à jour annonce</li>
+              }@else {
+                <li  class="active">Nouvelle annonce</li>
+              }
+              
+           </ol>
+        </div>
+     </div>
+  </div>
+</div>
+<!-- MESSAGE -->
+<button style="display: none;" type="button" id="btnModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+  Vertically centered
+</button>
+<div class="modal" id="verticalycentered" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-weight: 700;text-transform: uppercase;">Publication d'une annonce</h5>
+      </div>
+      <div class="modal-body" style="height: 130px;">
+        <i [ngClass]="classeIcon" style="float: left; margin-right: 20px;"></i>
+        <p [innerHTML]="message" style="font-weight: 600;"></p>
+        
+        
+        <!-- <i  class="fa fa-exclamation-triangle text-warning"></i> class="fa fa-check-circle text-success"-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div> 
+</div>
+<!-- End Vertically centered Modal-->
+
+<!-- FORMUALIRE ANNONCE -->
+@if (numaMaj){
+  <!-- SI MODIF -->
+<div class="product-page-main">
+  <div class="container">
+    <form (ngSubmit)="updateAnnonce()" #annonceForm="ngForm">
+    <div class="row">
+      <!-- PRIX petit bloc A DROITE -->
+      <div class="col-md-4 col-sm-12"> 
+        <div class="price-box-right" id="annonceForm">
+          <h3>Modifier l'annonce</h3>
+        
+          <label for="titre">*Titre</label>
+          <input  placeholder="Titre de l'annonce"  id="titre" class="form-control" [(ngModel)]="annonceMaj.titre" name="titre" required>
+
+          <label for="descriptionAnnonce">Description</label>
+          <textarea rows="3" placeholder="Description complète" id="description" class="form-control" [(ngModel)]="annonceMaj.description" name="description" required>
+            
+          </textarea>
+
+          <label for="statut">Statut</label><br>
+          <select class="form-control" id="statut" [(ngModel)]="annonceMaj.statut" name="statut" required>
+            <option value="Disponible">Disponible</option>
+            <option value="Suspendue">Suspendue</option>
+            <!-- <option value="En attente">En attente</option> -->
+          
+          </select>
+
+          
+          <!-- <a href="profil">Publier</a> -->
+          
+        </div>
+      </div>
+
+      <div class="col-md-8 col-sm-8">
+        <div class="md-prod-page">
+            <!-- DECRIPTION DU PRODUIT -->
+            <div class="description-box">
+              <div class="dex-a" id="produitForm">
+                  <h4>Description du produit</h4>
+                    
+                    <div class="row mb-3">
+                      <label for="nomprod" class="col-md-4 col-lg-3 col-form-label">*Nom</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="text" name="nomprod" id="nomprod" class="form-control" [(ngModel)]="annonceMaj.produit.nomprod" placeholder="le nom de votre produit" required>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="descprod" class="col-md-4 col-lg-3 col-form-label">Description</label>
+                      <div class="col-md-8 col-lg-9">
+                        <textarea style="height: 100px"  type="text" name="descprod" id="descprod" class="form-control" [(ngModel)]="annonceMaj.produit.descprod" required>
+                          Super produit
+                        </textarea>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="prixprod" class="col-md-4 col-lg-3 col-form-label">*Prix Ar</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="prixprod" type="number" class="form-control" id="prixprod" min="100" [(ngModel)]="annonceMaj.produit.prixprod" required>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="categprod" class="col-md-4 col-lg-3 col-form-label">*Catégorie</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select name="categprod" id="categprod"  class="form-control" [(ngModel)]="annonceMaj.produit.categprod" required>
+                          <option value="Accessoire">Accessoire</option>
+                          <option value="Matériel">Matériel</option>
+                          <option value="Menager">Menager</option>
+                          <option value="Meuble">Meuble</option>
+                          <option value="Nourriture">Nourriture</option>    
+                          <option value="Service">Service</option>
+                          <option value="Vetement">Vetement</option>
+                          <option value="Menager">Autres</option>
+                        </select>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="taille" class="col-md-4 col-lg-3 col-form-label">Taille</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="taille" type="number"  min="0" class="form-control" id="taille" [(ngModel)]="annonceMaj.produit.taille">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="largeur" class="col-md-4 col-lg-3 col-form-label">Largeur</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="largeur" type="number"   min="0" class="form-control" id="largeur" [(ngModel)]="annonceMaj.produit.largeur">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="materiel" class="col-md-4 col-lg-3 col-form-label">Matériel</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="materiel" placeholder="coton" type="text" class="form-control" id="materiel" [(ngModel)]="annonceMaj.produit.materiel">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="etat" class="col-md-4 col-lg-3 col-form-label">*Etat</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select name="etat" id="etat"  class="form-control" required [(ngModel)]="annonceMaj.produit.etat">
+                          <option value="Bonne">Bonne</option>
+                          <option value="Occasion">Occasion</option>
+                          <option value="Mauvais">Mauvais</option>
+                          <option value="Nouveau">Nouveau</option>
+                          <option value="Usé">Usé</option>
+                          <option value="Autre">Autre</option>
+                        </select>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="villeorigine" class="col-md-4 col-lg-3 col-form-label">*Lieu</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="villeorigine" type="text" class="form-control" id="villeorigine" placeholder="place actuel du produit" required [(ngModel)]="annonceMaj.produit.villeorigine">
+                      </div>
+                    </div>
+
+              </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- PLACEMENT IMAGES PRODUIT en bas-->
+    <div class="imagesProd">
+      <h3>Ajouter des images (4) du produit</h3>
+      <div  *ngIf="photosMaj.length > 0">
+        <div *ngFor="let photo of photosMaj; let i = index" class="col-md-3 mb-3">
+          <div class="card position-relative">
+            <!-- LISTE IMAGES PREV -->
+            <img src="images/Produits/{{photo.titrephoto}}" class="card-img-top img-fluid rounded" alt="Image sélectionnée">
+
+            <div class="card-body">
+              <h4>{{ photo.titrephoto }}</h4>
+              <!-- <button class="btn btn-warning btn-sm me-1" (click)="editImage(i)"><i class="fa fa-edit"></i></button> -->
+              <button class="btn btn-danger btn-sm" (click)="removeMajImage(i)"><i class="fa fa-trash"></i></button>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+
+      <!-- input image -->
+      <input type="file" id="photos" accept="image/*" (change)="ajouterMajPhotos($event)" [disabled]="annonceMaj.produit.photos.length >= 4" class="form-control mb-3" multiple>  
+      <p *ngIf="photosMaj.length >= 4" class="text-danger mt-3">
+        <i class="fa fa-warning"></i>Vous avez atteint le nombre maximum d'images.
+      </p>
+
+    </div>
+    <button id="btnEnvoi" type="submit" class="btn btn-success">Mettre à jour</button>
+    </form>  
+  </div>
+</div>
+}
+@else{
+  <!-- SINON AJOUT -->
+<div class="product-page-main">
+  <div class="container">
+    <form (ngSubmit)="envoyerAnnonce()" #annonceForm="ngForm">
+    <div class="row">
+      <!-- PRIX petit bloc A DROITE -->
+      <div class="col-md-4 col-sm-12"> 
+        <div class="price-box-right" id="annonceForm">
+          <h3>Nouvelle annonce</h3>
+        
+          <label for="titre">*Titre</label>
+          <input  placeholder="Titre de l'annonce"  id="titre" class="form-control" [(ngModel)]="annonce.titre" name="titre" required>
+
+          <label for="descriptionAnnonce">Description</label>
+          <textarea rows="3" placeholder="Description complète" id="description" class="form-control" [(ngModel)]="annonce.description" name="description" required>
+            
+          </textarea>
+
+          <label for="statut">Statut</label><br>
+          <select class="form-control" id="statut" [(ngModel)]="annonce.statut" name="statut" required>
+            <option value="Disponible">Disponible</option>
+            <option value="Suspendue">Suspendue</option>
+            <!-- <option value="En attente">En attente</option> -->
+          
+          </select>
+
+          
+          <!-- <a href="profil">Publier</a> -->
+          
+        </div>
+      </div>
+
+      <div class="col-md-8 col-sm-8">
+        <div class="md-prod-page">
+            <!-- DECRIPTION DU PRODUIT -->
+            <div class="description-box">
+              <div class="dex-a" id="produitForm">
+                  <h4>Description du produit</h4>
+                    
+                    <div class="row mb-3">
+                      <label for="nomprod" class="col-md-4 col-lg-3 col-form-label">*Nom</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="text" name="nomprod" id="nomprod" class="form-control" [(ngModel)]="annonce.produit.nomprod" placeholder="le nom de votre produit" required>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="descprod" class="col-md-4 col-lg-3 col-form-label">Description</label>
+                      <div class="col-md-8 col-lg-9">
+                        <textarea style="height: 100px"  type="text" name="descprod" id="descprod" class="form-control" [(ngModel)]="annonce.produit.descprod" required>
+                          Super produit
+                        </textarea>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="prixprod" class="col-md-4 col-lg-3 col-form-label">*Prix Ar</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="prixprod" type="number" class="form-control" id="prixprod" min="100" [(ngModel)]="annonce.produit.prixprod" required>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="categprod" class="col-md-4 col-lg-3 col-form-label">*Catégorie</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select name="categprod" id="categprod"  class="form-control" [(ngModel)]="annonce.produit.categprod" required>
+                          <option value="Accessoire">Accessoire</option>
+                          <option value="Matériel">Matériel</option>
+                          <option value="Menager">Menager</option>
+                          <option value="Meuble">Meuble</option>
+                          <option value="Nourriture">Nourriture</option>    
+                          <option value="Service">Service</option>
+                          <option value="Vetement">Vetement</option>
+                          <option value="Menager">Autres</option>
+                        </select>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="taille" class="col-md-4 col-lg-3 col-form-label">Taille</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="taille" type="number"  min="0" class="form-control" id="taille" [(ngModel)]="annonce.produit.taille">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="largeur" class="col-md-4 col-lg-3 col-form-label">Largeur</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="largeur" type="number"   min="0" class="form-control" id="largeur" [(ngModel)]="annonce.produit.largeur">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="materiel" class="col-md-4 col-lg-3 col-form-label">Matériel</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="materiel" placeholder="coton" type="text" class="form-control" id="materiel" [(ngModel)]="annonce.produit.materiel">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="etat" class="col-md-4 col-lg-3 col-form-label">*Etat</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select name="etat" id="etat"  class="form-control" required [(ngModel)]="annonce.produit.etat">
+                          <option value="Bonne">Bonne</option>
+                          <option value="Occasion">Occasion</option>
+                          <option value="Mauvais">Mauvais</option>
+                          <option value="Nouveau">Nouveau</option>
+                          <option value="Usé">Usé</option>
+                          <option value="Autre">Autre</option>
+                        </select>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="villeorigine" class="col-md-4 col-lg-3 col-form-label">*Lieu</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="villeorigine" type="text" class="form-control" id="villeorigine" placeholder="place actuel du produit" required [(ngModel)]="annonce.produit.villeorigine">
+                      </div>
+                    </div>
+
+              </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- PLACEMENT IMAGES PRODUIT en bas-->
+    <div class="imagesProd">
+      <h3>Ajouter des images (4) du produit</h3>
+      <div  *ngIf="annonce.produit.photos.length > 0">
+        <div *ngFor="let photo of annonce.produit.photos; let i = index" class="col-md-3 mb-3">
+          <div class="card position-relative">
+            <!-- LISTE IMAGES PREV -->
+            <img src="images/Produits/{{photo.titrephoto}}" class="card-img-top img-fluid rounded" alt="Image sélectionnée">
+
+            <div class="card-body">
+              <h4>{{ photo.titrephoto }}</h4>
+              <!-- <button class="btn btn-warning btn-sm me-1" (click)="editImage(i)"><i class="fa fa-edit"></i></button> -->
+              <button class="btn btn-danger btn-sm" (click)="removeImage(i)"><i class="fa fa-trash"></i></button>
+            </div>
+
+            <!-- LISTE IMAGES NEXT-->
+            <!-- <ul class="list-group mt-2" *ngIf="annonce.produit.photos.length > 0">
+              <li class="list-group-item" *ngFor="let photo of annonce.produit.photos">
+                <img src="images/Produits/{{photo.titrephoto}}" class="card-img-top img-fluid rounded" alt="Image sélectionnée">
+                {{ photo.titrephoto }}
+              </li>
+            </ul> -->
+
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- input image -->
+      <input type="file" id="photos" accept="image/*" (change)="ajouterPhotos($event)" [disabled]="annonce.produit.photos.length >= 4" class="form-control mb-3" multiple>  
+      <p *ngIf="annonce.produit.photos.length >= 4" class="text-danger mt-3">
+        <i class="fa fa-warning"></i>Vous avez atteint le nombre maximum d'images.
+      </p>
+
+    </div>
+    <button id="btnEnvoi" type="submit" class="btn btn-success">Publier</button>
+    </form>  
+  </div>
+</div>
+}

@@ -1,0 +1,64 @@
+#logIn{
+    padding: 20px 40px;
+    /*background-color: #f8f8f8be;*/
+    box-shadow: 4px -4px 2px #0000004f;
+   
+}
+
+#logIn input{
+    margin: 10px 0px;
+    height: 50px;
+    font-size: 17px;
+}
+
+#logIn label{
+    font-size: 15px;
+   
+}
+#logIn button{
+   margin-top: 20px;
+    
+}
+#logIn p{
+    margin: 10px 0px;
+    font-weight: 200;     
+
+ }
+#pdp{
+    /* background-color: #f8f8f8;
+    box-shadow: 4px 4px 2px #0000004f; */
+    padding: 30px 0px;
+    text-align: center;
+}
+
+#photos{
+    padding: 30px 0px;
+    text-align: center;
+}
+#imgProfil{
+    height: 180px;
+    width: 180px;
+    border-radius: 100%;
+    border: 1px solid #000000b2;
+    /*box-shadow: -3px 1px 1px rgb(0, 0, 0);*/
+    float: left;
+    margin-bottom: 20px;
+    text-align: center;
+}
+#imgCouv{
+    height: 200px;
+    width: 400px;
+    border: 1px solid #000000b2;
+    
+}
+
+#pdp input{
+    width: 100px;
+    border-radius: 100%;
+}
+#pdp button{
+    padding: 10px;
+    width: 200px;
+    font-weight: bold;
+
+}

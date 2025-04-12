@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('styles/style/font-awesome.min.css');
+@import url('styles/style/bootstrap.min.css');
+@import url('styles/style/animate-wow.css');
+@import url('styles/style/style.css');
+@import url('styles/style/bootstrap-select.min.css');
+@import url('styles/style/slick.min.css');
+@import url('styles/style/responsive.css');
+
+
+@import url('styles/vendor/bootstrap-icons/bootstrap-icons.css');
+/* @import url('styles/vendor/aos/aos.css');
+@import url('styles/vendor/glightbox/css/glightbox.min.css');
+@import url('styles/vendor/swiper/swiper-bundle.min.css'); */
+
+@import url('styles/style/main.css');
+
+/* NICE ADMIN */
+
+@import url('assets/vendor/boxicons/css/boxicons.min.css');
+@import url('assets/vendor/quill/quill.snow.css');
+@import url('assets/vendor/quill/quill.bubble.css');
+@import url('assets/vendor/remixicon/remixicon.css');
+@import url('assets/vendor/simple-datatables/style.css');
+
+@import url('assets/css/style.css');

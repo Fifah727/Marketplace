@@ -1,0 +1,170 @@
+<div class="terms-conditions product-page">
+   <div class="terms-title">
+      <div class="container">
+         <div class="row">
+            <ol class="breadcrumb">
+               <li><a href="inside/annonce">Annonce </a></li>
+               <li><a href="inside/profil">Utilisateur</a></li>
+               <li>Vendeur</li>
+               <li class="active">Profil</li>
+            </ol>
+         </div>
+      </div>
+   </div>
+ </div>
+@if (loading){
+   <div style="text-align: center;margin: 60px 0px;">
+   <h1 style="font-weight: 700;font-size:26px;margin-bottom: 30px;">Patientez une minute...</h1>
+   <img loading="eager" src="images/notfound.png" alt="" style="height: 600px"></div>
+}
+ <!-- PROFIL PAGE -->
+@if (user){
+<div class="profile-box banner-p">
+  <div class="container">
+     <div class="row">
+        <div class="col-md-12">
+           <div class="profile-b">
+              <img src="images/{{user.imgcouv}}" alt="#" />
+              <div class="dit-p">
+                 <div class="col-md-2"></div>
+                 <div class="col-md-10">
+                    <div class="profile-left-b">
+                       <ul>
+                          <li><a>Type : {{user.typeu}}</a></li>
+                          <li><a>Abonnées : <span [ngClass]="{'btnAbonner' :this.serviceFollow.followed(sessionService.getItem('idu'),user.idu)}">{{user.nbfollower}}</span></a></li>
+                       </ul>
+                    </div>
+                    <div class="profile-right-b" *ngIf="user.idu != sessionService.getItem('idu')">
+                     <button 
+                     class="btn btn-success" 
+                     [ngClass]="{'btn btn-danger' : this.serviceFollow.followed(sessionService.getItem('idu'),user.idu)}" 
+                     (click)="followUser(sessionService.getItem('idu'),user.idu)"
+                     [innerText]='this.serviceFollow.followed(sessionService.getItem("idu"),user.idu)?"Se désabonner":"S&#39;abonner"'
+                     >
+                     S'abonner
+                     </button>
+                     <!-- [innerText]='sessionService.getItem('dejaAbonne')? "":""' -->
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<div class="product-profile-box">
+  <div class="container">
+     <div class="row">
+        <div class="col-md-2 col-sm-4 pr">
+           <div class="profile-pro-left">
+              <div class="left-profile-box-m">
+                 <div class="pro-img">
+                    <img src="images/{{user.photou}}" alt="#" />
+                 </div>
+                 <div class="pof-text">
+                    <h3 style="font-size: 15px;">{{user.nomu}} {{user.prenomu}}</h3>
+                    <div class="check-box"></div>
+                 </div>
+                  <!-- TO UPLOAD LATER : MESSAGE fonctionnalite-->
+                  <!-- <div  id="#envoiMessage"  *ngIf="user.idu != sessionService.getItem('idu')">
+                     <a href="inside/message" style="color: rgb(255, 255, 255);">Envoyer un message</a>
+                  </div> -->
+                   <!-- TO UPLOAD LATER end-->
+                  <div  id="#envoiMessage"  *ngIf="user.idu == sessionService.getItem('idu')
+                  && user.typeu == 'Vendeur'">
+                     <a href="inside/formulaire" style="color: rgb(255, 255, 255);">Nouvelle annonce</a>
+                  </div>
+              </div>
+           </div>
+        </div>
+        <div class="col-md-10 col-sm-8">
+           <div class="profile-pro-right">
+              <div class="panel with-nav-tabs panel-default">
+                 <div class="panel-heading clearfix">
+                    <ul class="nav nav-tabs pull-left">
+                       <li class="active" *ngIf="user.typeu == 'Vendeur'"><a href="#tab1default" data-toggle="tab">Produits <span>{{user.annonces.length}}</span></a></li>
+                       <li><a href="#tab2default" data-toggle="tab">A propos</a></li>
+                       <li><a href="#tab3default" data-toggle="tab">Contacts</a></li>
+                    </ul>
+                    <ul class="nav nav-tabs pull-right right-t" *ngIf="user.idu == sessionService.getItem('idu')">
+                       <li class="dropdown">
+                           <button class="btn btn-secondary" (click)="maj(user.idu)">
+                              <a>
+                              <i class="fa fa-edit"></i>   Modifier le profil</a>
+                           </button>
+                        
+                       </li>
+                    </ul>
+                 </div>
+                 <div class="panel-body">
+                    <div class="tab-content">
+                        <div *ngIf="user.typeu== 'Vendeur' " class="tab-pane fade in active" id="tab1default">
+                        
+                           <div class="produit-slidr">
+                              <div class="slide">
+                                 @for (annonces of user.annonces;track annonces){
+                                    <div class="col-md-4 col-sm-6" style="margin-bottom: 20px;">
+                                          <div class="small-box-c">
+
+                                          <div class="small-img-b">
+                                                <!-- @for (photos of annonces.produit.photos;track photos){ -->
+                                                @if (annonces.produit.photos.length>0){
+                                                   <a href="inside/produitPage" (click)="voirProduit(annonces.numa)" >
+                                                      <img src="images/Produits/{{annonces.produit.photos[0].titrephoto}}" alt="#" 
+                                                      style="height: 260px;"/>
+                                                   </a>
+                                                }
+                                             @else {
+                                                <a href="inside/produitPage" (click)="voirProduit(annonces.numa)" >
+                                                   <img src="images/150x150_1.png" alt="#" 
+                                                   style="height: 260px;"/>
+                                                </a>
+                                             }
+                                                <!-- } -->
+                                          </div>
+                                          
+                                          <div class="dit-t clearfix">
+                                             <div class="left-ti">
+                                                <h4>{{annonces.produit.nomprod}}</h4>
+                                                <p>Par <span>{{user.prenomu}}</span></p>
+                                             </div>
+                                             <a tabindex="0">Ar {{annonces.produit.prixprod}}</a>
+                                          </div>
+                                          
+                                          </div>
+                                    </div>
+                                 }
+                              </div>
+                           </div>
+                        
+                       </div>
+
+                       <div class="tab-pane fade" id="tab2default">
+                          <div class="about-box">
+                             <h2>Introduction</h2>
+                             <p>{{user.introu}}</p>
+                             <p><span>Nom : </span> {{user.nomu}}</p>
+                             <p><span>Prénom : </span> {{user.prenomu}}</p>
+                             <p><span>Date d'inscription : </span> {{user.dateinscri}}</p>
+                             <p><span>Adresse / Ville :</span> {{user.adru}}</p>
+                          </div>
+                       </div>
+
+                       <div class="tab-pane fade" id="tab3default">
+                        <div class="about-box">
+                          <h2>Contactez <span style="font-weight: 700;">{{user.prenomu}}</span></h2>
+                          <p><span>Téléphone :</span> {{user.telu}}</p>
+                          <p><span>Email :</span> {{user.emailu}} </p>
+                        </div>
+                       </div>
+
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+ }
+

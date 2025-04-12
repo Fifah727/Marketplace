@@ -1,0 +1,358 @@
+@if (loading){
+      <div style="text-align: center;margin: 60px 0px;">
+      <h1 style="font-weight: 700;font-size:26px;margin-bottom: 30px;">Patientez une minute...</h1>
+      <img src="images/back3.jpg" loading="lazy" style="height: 600px"></div>
+}
+
+    @if (annonce.produit.length!=0){
+       <!-- PRODUCT PAGE Profil-->
+    <div class="terms-conditions product-page">
+      <div class="terms-title">
+         <div class="container">
+            <div class="row">
+               <ol class="breadcrumb">
+                  <li><a href="inside/annonce">Annonce </a></li>
+                  <!-- TO UPDATE WITH SEARCH -->
+                  <li ><a href="inside/produitPage">{{annonce.produit.categprod}}</a></li>
+                  <li>{{annonce.produit.nomprod}}</li>
+                  <li class="active">Details</li>
+               </ol>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div class="product-page-main">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="prod-page-title">
+                  <!-- <h2>{{annonce.produit.nomprod}}</h2>
+                  <p>Par <span>{{annonce.user.nomu}}</span></p> -->
+               </div>
+            </div>
+         </div>
+    
+         <div class="row">
+            <!-- PROFIL bloc a gauche -->
+            <div class="col-md-2 col-sm-4">
+               <div class="left-profile-box-m prod-page">
+                  <div class="pro-img">
+                     <img src="images/{{annonce.user.photou}}" alt="#" />
+                     <!-- {{annonce.user.photou}} -->
+                  </div>
+                  <div class="pof-text">
+                     <h3>{{annonce.user.nomu}} {{annonce.user.prenomu}}</h3>
+                     <div class="check-box"></div>
+                  </div>
+                  <a (click)="voirUser(annonce.user.idu)" href="inside/profil">Visiter profil</a>
+               </div>
+            </div>
+    
+            <div class="col-md-7 col-sm-8">
+               <div class="md-prod-page">
+                  <div class="md-prod-page-in">
+                    <!-- IMAGES DU PRODUITS -->
+                     <div class="page-preview">
+                        <div class="preview">
+                           <div class="preview-pic tab-content">
+                              @if (annonce.produit.photos.length>0){
+                                 <div class="tab-pane active" id="{{annonce.produit.photos[0].idphoto}}">
+                                    <img src="images/Produits/{{annonce.produit.photos[0].titrephoto}}" alt="#"/>
+                                 </div>
+                                 @for (photo of annonce.produit.photos.slice(1);track photo){
+                                 <div class="tab-pane" id="{{photo.idphoto}}">
+                                    <img src="images/Produits/{{photo.titrephoto}}" alt="#"/>
+                                 </div>
+                                 }
+                              }
+                             @else {
+                              <div class="tab-pane active">
+                                 <img src="images/150x150_1.png" alt="#"/>
+                              </div>
+                             }
+                             
+                           </div>
+                           <ul class="preview-thumbnail nav nav-tabs" *ngIf="annonce.produit.photos.length>0">
+                              <li  class="active">
+                                 <a href="#{{annonce.produit.photos[0].idphoto}}" data-toggle="tab">
+                                 <img src="images/Produits/{{annonce.produit.photos[0].titrephoto}}" alt="#" />
+                                 </a>
+                              </li>
+                              @for (photo of annonce.produit.photos.slice(1);track photo){
+                              <li>
+                                 <a href="#{{photo.idphoto}}" data-toggle="tab">
+                                    <img src="images/Produits/{{photo.titrephoto}}" alt="#"/>
+                                 </a>
+                              </li>
+                              }
+                             
+                           </ul>
+                        </div>
+                     </div>
+                     
+                     <!-- BTN ENREGISTRER, AIMER et NBLIKE -->
+                     <div class="btn-dit-list clearfix">
+                        <div class="left-dit-p">
+                           <div class="prod-btn" *ngIf="annonce.user.idu != sessionService.getItem('idu')">
+                              <!-- BTN ENREGISTRER -->
+                              <button class="btn btn-primary" (click)="enregitrer(annonce.numa)" 
+                              [disabled]="this.likeAnnonceService.dejaenreg(this.sessionService.getItem('idu'),annonce.numa)" 
+                              [ngClass]="{'btnEnreg' :  this.likeAnnonceService.dejaenreg(this.sessionService.getItem('idu'),annonce.numa)}">
+                                 <i class="fa fa-star" aria-hidden="true" 
+                                 [ngClass]='this.likeAnnonceService.dejaenreg(this.sessionService.getItem("idu"),annonce.numa)?"fa fa-check":"fa fa-star"'>
+                                 </i>  
+                                 <span [innerText]='this.likeAnnonceService.dejaenreg(this.sessionService.getItem("idu"),annonce.numa)?" Enregistré":" Enregistrer"'> Enregitrer</span>
+                              </button>
+                              <!-- BTN LIKER -->
+                              <button class="btn btn-success" (click)="likeannonce(sessionService.getItem('idu'),annonce.numa)" [ngClass]="{'btnClick' :  this.likeAnnonceService.dejaLiker(sessionService.getItem('idu'),annonce.numa)}" id="btnLike">
+                                 <i class="fa fa-heart" aria-hidden="true"></i> J'aime
+                              </button>
+                           </div>
+                           <!-- EN TANT QUE AUTEUR DE l'ANNONCE -->
+                           <div class="prod-btn" *ngIf="annonce.user.idu == sessionService.getItem('idu')">
+                              <button class="btn btn-success" (click)="updateAnnonce(annonce.numa)" id="btnModifAnnonce"><i class="fa fa-edit" aria-hidden="true"></i> Modifier</button>
+                              <button class="btn btn-danger"  (click)="suppAnnonce(annonce.numa)"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer</button>
+                           </div>
+                           <!-- <a *ngIf="annonce.user.idu == sessionService.getItem('idu')" style="color:white;background-color: palevioletred;" id="contacter">
+                              Supprimer cet annonce
+                           </a> 
+                           
+                              <div class="prod-btn" *ngIf="reponse.user.idu == sessionService.getItem('idu')" style="text-align: right;">
+                                 <button class="btn btn-success" >
+                                    <i class="fa fa-edit" ></i>
+                                 </button>
+                              </div>
+                           -->
+                        </div>
+                        <!-- NB LIKE DU PRODUIT -->
+                        <div class="right-dit-p">
+                           <div class="like-list">
+                              <ul>    
+                                 <li>
+                                    <div class="im-b">
+                                       <p><i class="fa fa-heart" [ngClass]="{'btnClick' : this.likeAnnonceService.dejaLiker(sessionService.getItem('idu'),annonce.numa)}"></i></p>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    <div class="im-b">
+                                       <p> {{annonce.nblike}}</p>
+                                    </div>
+                                 </li>
+                                 <!-- <li>
+                                    <div class="im-b">
+                                       <p> </p>
+                                    </div>
+                                 </li> -->
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+
+                  </div>
+                  <!-- DECRIPTION DU PRODUIT -->
+                  <div class="description-box">
+                     <div class="dex-a">
+                        <h4 style="font-size: larger;">
+                           <span style="text-transform: uppercase;">` {{annonce.produit.nomprod}} `</span> 
+                           <span style="font-weight: normal;">  dans  </span> 
+                           <a>{{annonce.produit.categprod}}</a> <!--  RECHERCHE PAR CATEGORIES CLIQUE -->
+                        </h4>
+                     </div>
+                     <div class="dex-a">
+                        <h4>Description</h4>
+                        <p> {{annonce.produit.descprod}}</p>
+                        <br>
+                        <p *ngIf="annonce.produit.taille!=0">Taille :  {{annonce.produit.taille}} cm</p>
+                        <p *ngIf="annonce.produit.largeur!=0">Largeur : {{annonce.produit.largeur}} cm</p>
+                     </div>
+                     <div class="spe-a">
+                        <h4>Specifications</h4>
+                        <ul>
+                           <li class="clearfix">
+                              <div class="col-md-4">
+                                 <h5>Mesures</h5>
+                              </div>
+                              <div class="col-md-8">
+                                 <p><span *ngIf="annonce.produit.hauteur!=0">{{annonce.produit.hauteur}}cm de hauteur / </span>
+                                 <span *ngIf="annonce.produit.taille!=0">{{annonce.produit.taille}} cm de taille / </span>
+                                 <span *ngIf="annonce.produit.largeur!=0">{{annonce.produit.largeur}} cm de largeur </span>
+                                 </p>
+                              </div>
+                           </li>
+                           <li class="clearfix" *ngIf="annonce.produit.materiel!=''">
+                              <div class="col-md-4">
+                                 <h5>Materiel</h5>
+                              </div>
+                              <div class="col-md-8">
+                                 <p>{{annonce.produit.materiel}}</p>
+                              </div>
+                           </li>
+                           <li class="clearfix">
+                              <div class="col-md-4">
+                                 <h5>Condition / Etat</h5>
+                              </div>
+                              <div class="col-md-8">
+                                 <p>{{annonce.produit.etat}}</p>
+                              </div>
+                           </li>
+                           
+                           <li class="clearfix">
+                              <div class="col-md-4">
+                                 <h5>Lieu</h5>
+                              </div>
+                              <div class="col-md-8">
+                                 <p>{{annonce.produit.villeorigine}}</p>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <!-- AVIS  Liste -->
+               <div class="similar-box">
+                  <h2>Avis sur ce produit : <span style="color: #1f96fe;">{{annonce.produit.avis.length}}</span></h2>
+                 
+                  <!-- LIGNE 1 -->
+                  <div class="row cat-pd" id="avis">
+                     <!-- LISE AVIS -->
+                     @for (avis of annonce.produit.avis;track avis){
+                      <!-- 1er avis -->
+                     <div class="col-md-6" style="margin-bottom: 15px;">
+                        <div class="small-box-c">
+                           <div class="dit-t clearfix">
+                              <div class="left-ti">
+                                 <p>
+                                    <small style="text-decoration: underline;">{{avis.dateavis}}</small>
+                                  
+                                 </p>
+
+                                 <h4><i class="fa fa-user-circle"></i> {{avis.user.nomu}} {{avis.user.prenomu}}</h4>
+                                 <p>{{avis.commentaire}}</p>
+                                 
+                              </div>
+                              <a style="font-size: 12px;color: #a5a5a5;">
+                                  Note : <i  *ngFor = "let note of [].constructor(+avis.noteavis)" class="fa fa-star" aria-hidden="true"></i>
+                              </a>
+                              
+                           </div>
+
+                           <!-- REPONSE COMMENTAIRE -->
+                          
+                           <div class="fff" id="{{avis.numavis}}" style="display: none;">
+                              <div class="dit-t clearfix">
+                                 <form (ngSubmit)="envoyerRep(avis.numavis)">
+                                    <div class="left-ti">
+                                       <input type="text" [(ngModel)]="reponse.texterep" name="commentaire" id="commentaire" placeholder="votre commentaire...">
+                                    </div>
+                                    <div class="prod-btn" style="text-align: right;">
+                                       <button class="btn btn-primary" type="submit"><i class="fa fa-send" aria-hidden="true"></i></button>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+
+                           <div class="prod-btn">
+                              <button class="btn btn-success" *ngIf="annonce.statut != 'Suspendue'" (click)="showBoxComment(avis.numavis)">
+                                 <i class="fa fa-comment" aria-hidden="true"></i> Répondre
+                              </button>
+                              
+                              <button class="btn btn-danger" (click)="suppAvis(avis.numavis)" *ngIf="avis.user.idu == sessionService.getItem('idu')">
+                                 <i class="fa fa-trash" ></i>
+                              </button>
+
+                             
+
+                              <!-- <a (click) = "aimeAvis(avis.numavis)"><i class="fa fa-heart" aria-hidden="true"></i> {{avis.nblikeavis}} J'aime</a> -->
+                           </div>
+                           
+                           
+                           @if (avis.reponses.length > 0){
+                              <hr>
+                              <div class="boxComment">
+                                 <p style="font-weight: 600;color: #a5a5a5;"><small>COMMENTAIRE :</small></p>
+                                 
+                                 <div id="Commentaires" style="padding-left: 30px;">
+                                    @for (reponse of avis.reponses;track reponse){
+                                       <div class="dit-t clearfix">
+                                          <div class="left-ti">
+                                             <p>
+                                                <small style="text-decoration: underline;">{{avis.dateavis}}</small>
+                                             </p>
+                                             <h4><i class="fa fa-user-circle"></i> {{reponse.user.nomu}}  {{reponse.user.prenomu}} : 
+                                             
+                                             </h4>
+                                             <p style="width: 200px;">{{reponse.texterep}}</p>
+                                            
+                                          </div>
+                                         
+                                          <div class="prod-btn" *ngIf="reponse.user.idu == sessionService.getItem('idu')" style="text-align: right;">
+                                             <button class="btn btn-danger" (click)="deleteRep(reponse.numrep)">
+                                                <i class="fa fa-trash" ></i>
+                                             </button>
+                                          </div>
+                                          
+                                       </div>
+                                    }
+                                 </div>
+                              </div>
+                              
+                           }
+                          
+                        </div>
+                     </div>
+                     }
+                  </div>
+
+                  <!-- LIGNE 2 -->
+                  <div class="row cat-pd" *ngIf="annonce.statut != 'Suspendue'">
+                     <!-- AVIS DU PASSANT -->
+                     <div class="col-md-12">
+                        <div class="small-box-c">
+                           <form action="" (ngSubmit)="envoyerAvis(annonce.produit.codeprod)">
+                              <div class="dit-t clearfix">
+                                 <h4><i class="fa fa-user-circle"></i> Vous</h4>
+                                 <a tabindex="0">
+                                    Note : 
+                                    <i *ngFor = "let note of [].constructor(noteAvis)" style="margin-left: 2px;" class="fa fa-star" aria-hidden="true"></i>
+                                 </a> 
+                                 <hr>
+
+                                 <input type="text" style="width: 400px;" [(ngModel)]="avis.commentaire" name="commentaire" id="commentaire" placeholder="donner votre avis sur ce produit...">
+                                 
+                                 <p>donner une note : 
+                                    <input type="number" id="noteavis" [(ngModel)]="avis.noteavis" name="noteavis" value="1" max="5" min="1" (selectionchange)="plusNoteAvis($event)">
+                                 </p>
+                                 
+                                
+                                 <div class="prod-btn" style="text-align: right;">
+                                    <button class="btn btn-success" type="submit"><i class="fa fa-send" aria-hidden="true"></i> Publier</button>
+                                 </div>
+                              </div>
+                              
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+
+            <!-- PRIX petit bloc A DROITE -->
+            <div class="col-md-3 col-sm-12">
+               <div class="price-box-right">
+                  <h3 *ngIf="annonce.statut == 'Suspendue'" style="color: rgb(207, 8, 8);text-decoration:underline;"> Annonce Suspendue</h3>
+                  <h4>Prix</h4>
+                  <h3>{{annonce.produit.prixprod}} Ar<span> par piece</span></h3>
+                  <!-- TO UPLOAD LATER :  MESSAGE fonctionnalite-->
+                  <a (click)="envoyerMessage(annonce.user.idu)" style="color:white;" id="contacter" *ngIf="annonce.user.idu != sessionService.getItem('idu')">
+                  Envoyer un message
+                  </a>
+                  <!-- TO UPLOAD LATER end-->
+                  <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong> {{annonce.heurecreation}}</strong> - 
+                  <i class="fa fa-calendar-o" aria-hidden="true"></i> <strong> {{annonce.datecreation}}</strong></h5>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>  
+   }

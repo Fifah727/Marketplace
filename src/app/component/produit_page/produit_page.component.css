@@ -1,0 +1,40 @@
+#contacter:hover{
+    border: 1px solid rgb(102, 170, 0);
+    font-size: larger;
+}
+
+#commentaireRep:hover{
+    border: none;
+    
+}
+
+.btnClick{
+    color: #007506;
+}
+
+.small-box-c:hover{
+	border-bottom: none;
+}
+
+.boxComment{
+    background-color: rgb(248, 252, 241);
+   
+}
+
+#avis{
+    display: flex;
+    flex-wrap: wrap;
+   
+   
+    
+}
+
+.prod-btn button:hover{
+    color: white;
+}
+
+.btnEnreg{
+    color: #ffffff;
+    background-color: #337ab7;
+
+}

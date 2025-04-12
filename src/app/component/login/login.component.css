@@ -1,0 +1,34 @@
+#logIn{
+    padding : 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    box-shadow: 4px 4px 2px #00000021;
+   
+}
+
+#logIn input{
+    margin: 10px 0px;
+    height: 50px;
+    font-size: 17px;
+}
+
+#logIn label{
+    font-size: 15px;
+   
+}
+#logIn button{
+   margin-top: 20px;
+    
+}
+#logIn p{
+    margin: 10px 0px;
+    font-weight: 200;     
+
+ }
+ #logIn h2{
+    text-align: center;
+    font-weight: 200;     
+    margin-bottom: 30px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+ }

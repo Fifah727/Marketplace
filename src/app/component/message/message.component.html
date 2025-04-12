@@ -1,0 +1,155 @@
+<div class="terms-conditions product-page">
+  <div class="terms-title">
+     <div class="container">
+        <div class="row">
+           <ol class="breadcrumb">
+                <li><a href="inside/annonce">Annonce </a></li>
+              <li><a href="inside/profil">Profil </a></li>
+              <li>Message</li>
+              <li class="active">Conversation</li>
+           </ol>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- MESSAGE -->
+<div class="container">
+<div class="row clearfix">
+    <div class="col-lg-12">
+        <div class="card chat-app">
+            <div id="plist" class="people-list">
+
+               
+                <input (input)="rechUsers()" [(ngModel)]="useRech" type="text" class="form-control" placeholder="Recherchez un utilisateur...">
+                
+                <!-- usersFiltre
+                <li class="clearfix active" *ngFor="let user of usersFiltre" (click)="getMymessage(user.idu)">
+                    <img src="images/{{user.photou}}" alt="avatar">
+                    <div class="about">
+                        <div class="name">{{user.nomu}} {{user.prenomu}}</div>
+                        <div class="status"> <i class="fa fa-circle online"></i> {{user.typeu}} </div>
+                    </div>
+                </li>
+                usersFiltre -->
+
+                <!-- LISTE USERS AVEC QUI ON A COMMUNIQUER -->
+                <ul class="list-unstyled chat-list mt-2 mb-0" style="margin-top: 20px;">
+                    <li *ngIf="usersWithConv.length==0">Aucun utilisateur </li>
+                    <li class="clearfix active" *ngFor="let user of usersWithConv" (click)="getMymessage(user.idu)">
+                        <img src="images/{{user.photou}}" alt="avatar">
+                        <div class="about">
+                            <div class="name">{{user.nomu}} {{user.prenomu}}</div>
+                            <div class="status"> <i class="fa fa-circle online"></i> {{user.typeu}} </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat">
+                <div class="chat-header clearfix">
+                    <div class="row" *ngIf="messagesRecus.length>0">
+                        @if(messagesRecus[0].userenvoyeur.idu !== this.sessionService.getItem('idu')){
+                            <div class="col-lg-6">
+                                <a data-toggle="modal" data-target="#view_info">
+                                    <img src="images/{{messagesRecus[0].userenvoyeur.photou}}" alt="avatar">
+                                </a>
+                                <div class="chat-about">
+                                    <h6 class="m-b-0">{{messagesRecus[0].userenvoyeur.nomu}}</h6>
+                                    <small>Dernier message : {{messagesRecus[0].date}}</small>
+                                </div>
+                            </div>
+                        }
+                        @else {
+                           <div class="col-lg-6"> <!--  *ngIf="messagesRecus[0].userrecepteur.idu !== monId" -->
+                                <a data-toggle="modal" data-target="#view_info">
+                                    <img src="images/{{messagesRecus[0].userrecepteur.photou}}" alt="avatar">
+                                </a>
+                                <div class="chat-about">
+                                    <h6 class="m-b-0">{{messagesRecus[0].userrecepteur.nomu}}</h6>
+                                    <small>Dernier message : {{messagesRecus[0].date}}</small>
+                                </div>
+                            </div>
+                        }
+                       <!-- LU OU PAS LU LOGIQUE :  -->
+                       
+                        <div class="col-lg-6 hidden-sm text-right">
+                            <a class="btn btn-danger" (click)="suppMessage()">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                         
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-history">
+                    <ul class="m-b-0">
+                        <!-- MESSAGE -->
+                        <div *ngIf="messagesRecus.length==0">
+                            <li>Aucun message pour le moment. <strong>Envoyer votre message.</strong></li>
+                        </div>
+                        <div *ngIf="messagesRecus.length>0" class="messages">
+
+                        <div *ngFor="let message of messagesRecus"  >
+                            @if(message.userenvoyeur.idu === this.sessionService.getItem('idu')){
+                                <li class="clearfix">
+                                    <div class="message-data text-right">
+                                        <span [ngStyle]="{'color' : message.lu ? 'green' : 'black'}">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                        <span class="message-data-time" style="font-weight: normal;font-size: 12px;"> {{ message.date }}, {{ message.heure }} </span>
+                                    </div>
+                                    <!-- <div class="message-data text-right">
+                                        <span class="message-data-time">   </span>
+                                    </div> -->
+                                   
+                                    <div [ngStyle]="{'background-color' : message.lu ? '#D1F39FFF' : '#C8FDFFFF'}" class="message other-message float-right " style="font-size: 15px;">
+                                        <!-- <span> <i class="fa fa-check-double"></i></span> -->
+                                        Vous : 
+                                        <span [ngStyle]="{'font-weight' : message.lu ? 'normal' : 'bold'}"> {{ message.texte }} </span> 
+                                    </div>
+                                   
+                                    
+
+                                </li>  
+                            }
+                            @else {
+                               
+                                <li class="clearfix"  ><!-- *ngIf="message.userenvoyeur.idu !== monId" -->
+                                    <div class="message-data ">
+                                      
+                                        <span class="message-data-time" style="font-weight: normal;font-size: 12px;"> {{ message.date }}, {{ message.heure }} </span>
+                                    
+                                    </div>
+                                    <div class="message-data ">
+                                        
+                                        <img src="images/{{message.userenvoyeur.photou}}" alt="avatar">
+                                        <span class="message-data-time"> {{message.userenvoyeur.nomu}} </span>
+                                    
+                                    </div>
+                                    <div class="message my-message " style="font-size: 15px;background-color: rgb(248, 248, 248);"> {{ message.texte }} </div>
+                                </li>
+                            }
+                                                    
+                        </div>
+                        
+                        </div>
+                    </ul>
+                </div>
+                <div class="chat-message clearfix" >
+                   
+                    <ul>
+                        <form (ngSubmit)="envoyerMessage()">
+                            <li style="display: inline-block;margin-right: 20px;">
+                                <input type="text" style="width: 620px;height: 50px;" id="texte" [(ngModel)]="messageEnvoye.texte" name="texte" class="form-control" placeholder="Tapez un message..." />
+                            </li>
+                            <li style="display: inline-block;">
+                                <button type="submit"  style="height: 50px;width: 100px;" class="btn btn-success"><i class="fa fa-send"></i> Envoyer</button>
+                            </li>
+                        </form>
+                    </ul>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
